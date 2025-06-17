@@ -1,0 +1,12 @@
+public class NameReverse {
+    public static void main(String[] args) {
+        String name = "venky";
+        String reversedName = reverseString(name);
+        System.out.println("Reversed name: " + reversedName);
+    }
+
+    public static String reverseString(String input) {
+        StringBuilder reversed = new StringBuilder(input);
+        return reversed.reverse().toString();
+    }
+}

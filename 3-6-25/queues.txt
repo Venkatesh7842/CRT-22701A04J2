@@ -1,0 +1,64 @@
+public class SimpleQueue {
+    private int[] queue;
+    private int front, rear, size, capacity;
+
+    public SimpleQueue(int capacity) {
+        this.capacity = capacity;
+        queue = new int[capacity];
+        front = 0;
+        size = 0;
+        rear = -1;
+    }
+
+    public void enqueue(int item) {
+        if (size == capacity) {
+            System.out.println("Queue is full!");
+            return;
+        }
+        rear = (rear + 1) % capacity;
+        queue[rear] = item;
+        size++;
+        System.out.println(item + " enqueued to queue");
+    }
+
+    public int dequeue() {
+        if (size == 0) {
+            System.out.println("Queue is empty!");
+            return -1;
+        }
+        int item = queue[front];
+        front = (front + 1) % capacity;
+        size--;
+        return item;
+    }
+
+    public int peek() {
+        if (size == 0) {
+            System.out.println("Queue is empty!");
+            return -1;
+        }
+        return queue[front];
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public static void main(String[] args) {
+        SimpleQueue q = new SimpleQueue(5);
+
+        q.enqueue(10);
+        q.enqueue(20);
+        q.enqueue(30);
+
+        System.out.println("Dequeued: " + q.dequeue());
+
+        System.out.println("Front element is: " + q.peek());
+
+        System.out.println("Queue size is: " + q.getSize());
+    }
+}

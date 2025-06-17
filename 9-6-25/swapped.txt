@@ -1,0 +1,22 @@
+public class main{
+    public static void main(String[]args){
+        int []nums={19,21,3,8,9,10,12};
+        for (int j=0; j<nums.length -1;j++){
+            boolean isswapped =false;
+            for(int i=0;i< nums.length-j-1;i++) {
+                if (nums [i]>nums[i+1]){
+                    // swap
+                    int temp =nums[i];
+                    nums[i]=nums[i+1];
+                    nums[i+1]=temp;
+                    isswapped=true;
+                }
+            }
+            if(! isswapped) break;
+        }
+         for (int num : nums) {
+            System.out.print(num + " ");
+    }
+    }
+    
+}

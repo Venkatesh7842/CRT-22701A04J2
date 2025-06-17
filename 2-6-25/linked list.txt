@@ -1,0 +1,62 @@
+class LinkedList {
+    Node head;
+    class Node {
+        int data;
+        Node next;
+
+        Node(int d) {
+            data = d;
+            next = null;
+        }
+    }
+
+    public void append(int new_data) {
+        Node new_node = new Node(new_data);
+
+        if (head == null) {
+            head = new_node;
+            return;
+        }
+
+        Node last = head;
+        while (last.next != null) {
+            last = last.next;
+        }
+
+        last.next = new_node;
+    }
+
+    public void deleteAtBeginning() {
+        if (head == null) {
+            System.out.println("List is empty, nothing to delete.");
+            return;
+        }
+        head = head.next;
+    }
+
+    public void printList() {
+        Node currNode = head;
+        while (currNode != null) {
+            System.out.print(currNode.data + " -> ");
+            currNode = currNode.next;
+        }
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+
+        list.append(10);
+        list.append(20);
+        list.append(30);
+        list.append(40);
+
+        System.out.println("Original List:");
+        list.printList();
+
+        list.deleteAtBeginning();
+
+        System.out.println("After deleting at beginning:");
+        list.printList();
+    }
+}

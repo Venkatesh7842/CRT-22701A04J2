@@ -1,0 +1,116 @@
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class App {
+    public static void main(String[] args) {
+        Graph graph = new Graph(5, false);
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 4);
+        graph.addEdge(1, 2);
+        graph.addEdge(1, 4);
+        graph.addEdge(1, 3);
+        graph.addEdge(3, 4);
+        graph.addEdge(2, 3);
+
+        graph.printGraph();
+
+        System.out.print("DFS starting from vertex 0: ");
+        graph.dfs(0, new boolean[5]);
+        System.out.println();
+
+        System.out.print("BFS starting from vertex 0: ");
+        graph.bfs(0);
+        System.out.println();
+    }
+}
+
+class Graph {
+    private ArrayList<HashSet<Integer>> graph;
+    private int vertices;
+    private boolean isDirected;
+
+    public Graph(int vertices, boolean isDirected) {
+        this.vertices = vertices;
+        this.isDirected = isDirected;
+        graph = new ArrayList<>();
+        for (int i = 0; i < vertices; i++) {
+            graph.add(new HashSet<>());
+        }
+    }
+
+    public boolean isValidVertex(int v) {
+        return v >= 0 && v < vertices;
+    }
+
+    public void addEdge(int src, int dest) {
+        if (!isValidVertex(src) || !isValidVertex(dest)) {
+            System.out.println("Invalid source or destination vertex.");
+            return;
+        }
+        graph.get(src).add(dest);
+        if (!isDirected) {
+            graph.get(dest).add(src);
+        }
+    }
+
+    public void removeEdge(int src, int dest) {
+        if (!isValidVertex(src) || !isValidVertex(dest)) {
+            System.out.println("Invalid source or destination vertex.");
+            return;
+        }
+        graph.get(src).remove(dest);
+        if (!isDirected) {
+            graph.get(dest).remove(src);
+        }
+    }
+
+    public void printGraph() {
+        System.out.println("Graph adjacency list:");
+        for (int i = 0; i < vertices; i++) {
+            System.out.print(i + ": ");
+            for (int adj : graph.get(i)) {
+                System.out.print(adj + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void dfs(int start, boolean[] visited) {
+        if (!isValidVertex(start)) {
+            System.out.println("Invalid start vertex for DFS.");
+            return;
+        }
+        visited[start] = true;
+        System.out.print(start + " ");
+        for (int neighbor : graph.get(start)) {
+            if (!visited[neighbor]) {
+                dfs(neighbor, visited);
+            }
+        }
+    }
+
+    public void bfs(int start) {
+        if (!isValidVertex(start)) {
+            System.out.println("Invalid start vertex for BFS.");
+            return;
+        }
+        boolean[] visited = new boolean[vertices];
+        Queue<Integer> queue = new LinkedList<>();
+        visited[start] = true;
+        queue.offer(start);
+
+        while (!queue.isEmpty()) {
+            int vertex = queue.poll();
+            System.out.print(vertex + " ");
+            for (int neighbor : graph.get(vertex)) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    queue.offer(neighbor);
+                }
+            }
+        }
+    }
+}

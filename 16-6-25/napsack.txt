@@ -1,0 +1,25 @@
+public class Main {
+    public static void main(String[] args) {
+        int[] weights = {1, 2, 3, 4};
+        int[] profits = {1, 4, 5, 6};
+        int bagweight = 7;
+
+        int maxprofit = knapsack(bagweight, 0, weights, profits);
+        System.out.println("Maximum profit: " + maxprofit);
+    }
+
+    public static int knapsack(int bagweight, int selectedElement, int[] weights, int[] profits) {
+        if (selectedElement >= weights.length || bagweight == 0) {
+            return 0;
+        }
+
+        int pick = 0;
+        if (bagweight >= weights[selectedElement]) {
+            pick = profits[selectedElement] + knapsack(bagweight - weights[selectedElement], selectedElement + 1, weights, profits);
+        }
+
+        int notPick = knapsack(bagweight, selectedElement + 1, weights, profits);
+
+        return Math.max(pick, notPick);
+    }
+}

@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class Staircase {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter the number of steps: ");
+        int steps = scanner.nextInt();
+        
+        for (int i = 1; i <= steps; i++) {
+            // Print spaces
+            for (int j = steps - i; j > 0; j--) {
+                System.out.print(" ");
+            }
+            // Print stars
+            for (int k = 1; k <= i; k++) {
+                System.out.print("");
+            }
+            System.out.println();
+        }
+        
+        scanner.close();
+    }
+}

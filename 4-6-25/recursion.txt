@@ -1,0 +1,15 @@
+public class RecursionExample {
+
+    // Recursive method to calculate sum of first n numbers
+    public static int sum(int n) {
+        if (n == 0)  // Base case
+            return 0;
+        else
+            return n + sum(n - 1);
+    }
+    public static void main(String[] args) {
+        int number = 25;
+        int result = sum(number);
+        System.out.println("Sum of first " + number + " numbers is: " + result);
+    }
+}
